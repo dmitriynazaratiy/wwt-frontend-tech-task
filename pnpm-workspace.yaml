@@ -1,3 +1,9 @@
 allowBuilds:
   '@swc/core': true
   esbuild: true
+overrides:
+  # typescript-eslint 6 pins a vulnerable minimatch patch release.
+  'minimatch@9.0.3': 9.0.7
+minimumReleaseAgeExclude:
+  - react-router-dom@7.18.5
+  - react-router@7.18.5
