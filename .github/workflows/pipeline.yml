@@ -1,14 +1,25 @@
 name: Pipeline
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: Node.js version (default reads .nvmrc)
+        required: true
+        default: default
+        type: choice
+        options:
+          - default
+          - 18.x
+          - 20.x
+          - 22.x
+          - 24.x
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
 
     steps:
       - name: Checkout
@@ -17,10 +28,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{matrix.node-version}}
+          node-version: ${{ inputs.node-version != 'default' && inputs.node-version || '' }}
+          node-version-file: .nvmrc
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: npm install -g pnpm@12.15.0
 
       - name: Install dependencies
         run: pnpm install
