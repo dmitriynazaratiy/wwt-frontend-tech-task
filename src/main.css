@@ -12,6 +12,7 @@
 	--color-brand-100: #ff9e59;
 	--color-brand-200: #ff5f00;
 	--color-brand-300: #ff3d00;
+	--color-primary-100: #078691;
 	--color-overlay: #1b1b1b;
 
 	--shadow-100: 0 2px 12px rgb(0 0 0 / 14%);
@@ -112,6 +113,8 @@
    shorthand resets animation-fill-mode, so a separate fill-mode class cannot
    keep a closing element hidden until it is removed. */
 @utility animate-exit {
+	/* These variables are supplied by Tailwind's duration and easing utilities. */
+	/*noinspection CssUnresolvedCustomProperty*/
 	animation: exit var(--tw-duration, 150ms) var(--tw-ease, ease) forwards;
 }
 
@@ -119,6 +122,14 @@
 @utility text-trim {
 	text-box-trim: trim-both;
 	text-box-edge: cap alphabetic;
+}
+
+/* Figma hyperlink: underline drawn from the font's own metrics */
+@utility link-underline {
+	text-decoration-line: underline;
+	text-decoration-thickness: from-font;
+	text-underline-position: from-font;
+	text-decoration-skip-ink: none;
 }
 
 /* Title centred between the close button column and an equal empty column */
@@ -141,6 +152,7 @@
 }
 
 @utility modal-root {
+	--modal-layer: 0;
 	z-index: calc(
 		var(--modal-z-base) + var(--modal-layer, 0) * var(--modal-z-step)
 	);

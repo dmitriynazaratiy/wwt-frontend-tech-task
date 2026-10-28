@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import CloseIcon from '@/shared/assets/icons/close.svg'
 
+import { Divider } from '../Divider'
 import { ModalApplyButton, ModalCancelButton } from './ModalActionButtons'
 import { ModalActionHandler, ModalActionsContext } from './modalActions'
 import { ModalContainerContext } from './modalContainer'
@@ -77,9 +78,11 @@ export interface ModalProps {
 	 */
 	scroll?: 'content' | 'overlay'
 	/**
-	 * Desktop spacing and elevation, per Figma.
-	 * - `default`: the filter pop-up, 40px top and bottom padding, no shadow
-	 * - `compact`: the confirmation dialog, 32px padding and `shadow-100`
+	 * Spacing, elevation and separators, per Figma.
+	 * - `default`: the filter pop-up, 40px top and bottom padding, no shadow,
+	 *   2px dividers closing the header and opening the footer
+	 * - `compact`: the confirmation dialog, 32px padding, `shadow-100`, no
+	 *   dividers
 	 * @default 'default'
 	 */
 	variant?: 'default' | 'compact'
@@ -159,12 +162,14 @@ const variantClassNames = {
 	default: {
 		panel: '',
 		header: 'md:pt-10',
-		bottom: 'md:pb-10'
+		bottom: 'md:pb-10',
+		isSeparated: true
 	},
 	compact: {
 		panel: 'shadow-100',
 		header: 'md:pt-8',
-		bottom: 'md:pb-8'
+		bottom: 'md:pb-8',
+		isSeparated: false
 	}
 }
 
@@ -323,22 +328,26 @@ const ModalContent = ({
 				>
 					{/* Capped so an extremely long title cannot squeeze the body away */}
 					<header
-						className={`grid max-h-modal-header-cap shrink-0 grid-cols-modal-header items-center gap-2 overflow-y-auto px-4 pt-4 pb-6 md:px-8 md:pb-modal-title-gap ${variantClasses.header} ${classNames.header}`}
+						className={`max-h-modal-header-cap shrink-0 overflow-y-auto px-4 pt-4 md:px-8 ${variantClasses.header} ${classNames.header}`}
 					>
-						<h2
-							id={titleId}
-							className="col-start-2 min-w-0 text-center text-headline-5 md:text-headline-2 md:leading-12"
-						>
-							{title}
-						</h2>
-						<button
-							className="col-start-3 -mr-2.5 grid size-11 cursor-pointer place-items-center justify-self-end rounded-lg focus-visible:outline-2 focus-visible:outline-grey-500"
-							type="button"
-							onClick={onClose}
-							aria-label={closeLabel ?? t('close')}
-						>
-							<CloseIcon aria-hidden="true" />
-						</button>
+						<div className="grid grid-cols-modal-header items-center gap-2 pb-6 md:pb-modal-title-gap">
+							<h2
+								id={titleId}
+								className="col-start-2 min-w-0 text-center text-headline-5 md:text-headline-2 md:leading-12"
+							>
+								{title}
+							</h2>
+							<button
+								className="col-start-3 -mr-2.5 grid size-11 cursor-pointer place-items-center justify-self-end rounded-lg focus-visible:outline-2 focus-visible:outline-grey-500"
+								type="button"
+								onClick={onClose}
+								aria-label={closeLabel ?? t('close')}
+							>
+								<CloseIcon aria-hidden="true" />
+							</button>
+						</div>
+						{/* Part of the header, so it stays put while the content scrolls */}
+						{variantClasses.isSeparated && <Divider />}
 					</header>
 					<div
 						className={`px-4 md:px-8 ${hasFooter ? '' : `pb-4 ${variantClasses.bottom}`} ${classNames.body}`}
@@ -350,9 +359,12 @@ const ModalContent = ({
 							value={{ onClose, onApply, onCancel, applyLabel, cancelLabel }}
 						>
 							<footer
-								className={`flex flex-wrap justify-center gap-8 px-4 pb-4 md:px-8 ${variantClasses.bottom} ${classNames.footer}`}
+								className={`px-4 pb-4 md:px-8 ${variantClasses.bottom} ${classNames.footer}`}
 							>
-								{footer}
+								{variantClasses.isSeparated && <Divider className="mb-8" />}
+								<div className="flex flex-wrap justify-center gap-8">
+									{footer}
+								</div>
 							</footer>
 						</ModalActionsContext.Provider>
 					)}
