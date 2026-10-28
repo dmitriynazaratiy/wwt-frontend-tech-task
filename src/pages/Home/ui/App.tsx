@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { FilterModal, useFilterStore } from '@/features/filter'
 import { Button } from '@/shared/ui/Button'
-import { Modal } from '@/shared/ui/Modal'
 
 export const App = () => {
 	const { t } = useTranslation('filter')
 	const [isOpen, setIsOpen] = useState(false)
+	const appliedFilters = useFilterStore(state => state.appliedFilters)
+	const selectedFiltersId = useId()
 	return (
 		<main className="relative flex min-h-dvh flex-col items-center justify-center gap-8 bg-white p-6 text-center text-grey-500">
 			{/*
@@ -24,16 +26,24 @@ export const App = () => {
 			>
 				{t('open')}
 			</Button>
-			<Modal
+			<section
+				aria-labelledby={selectedFiltersId}
+				className="w-full max-w-modal text-left"
+			>
+				<h2
+					id={selectedFiltersId}
+					className="text-headline-5"
+				>
+					{t('selectedFilters')}
+				</h2>
+				<pre className="mt-4 overflow-x-auto rounded-2xl bg-grey-100 p-4 text-body-7">
+					{JSON.stringify(appliedFilters, null, 2)}
+				</pre>
+			</section>
+			<FilterModal
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
-				title={t('title')}
-				closeLabel={t('close')}
-			>
-				<p className="text-left text-body-6 text-grey-300">
-					{t('placeholder')}
-				</p>
-			</Modal>
+			/>
 		</main>
 	)
 }

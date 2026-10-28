@@ -86,6 +86,9 @@
 	--container-modal: 80rem;
 	--spacing-modal-title-gap: 25px;
 	--spacing-modal-header-cap: 40dvh;
+	/* Figma confirmation dialog: 120px from title to buttons, minus the 25px
+	   gap the modal header already adds */
+	--spacing-confirm-gap: 95px;
 
 	/* 64px desktop buttons: Figma padding minus the 2px border, which Figma
 	   draws inside the frame. Loading trades 16px for the spinner. */
@@ -130,6 +133,11 @@
 	text-decoration-thickness: from-font;
 	text-underline-position: from-font;
 	text-decoration-skip-ink: none;
+}
+
+/* Main action centred, extras free to sit at either edge */
+@utility grid-cols-footer {
+	grid-template-columns: 1fr auto 1fr;
 }
 
 /* Title centred between the close button column and an equal empty column */

@@ -37,3 +37,11 @@ Implement the modal as a shared component in `shared/ui/Modal` instead of buildi
 ### Decision 2: manage open modals in a DOM-level stack with per-modal portal containers
 
 Coordinate open modals through a small stack module per document, and render each modal into its own container appended to `body`. The stack applies focus trapping, `Escape` handling, scroll locking and `inert` only to the top modal, and does this synchronously without a context provider or extra re-renders. Separate containers give each modal its own layer and backdrop, with all z-index values defined in one stylesheet. The native `<dialog>` top layer was not used because it renders above any z-index, which would hide dropdowns that third-party libraries attach to `body`.
+
+### Decision 3: show option descriptions as unstyled native tooltips
+
+Show each option's description in a native browser tooltip, with the same text exposed to screen readers. Figma includes tooltip designs, but neither the task nor the filter frames say how descriptions should be used, so styling them is out of scope.
+
+### Decision 4: leave filters with nothing selected out of the saved state
+
+Save only filters with at least one selected option. An empty `optionsIds` carries no information and makes the saved `SearchRequestFilter` harder to read.

@@ -1,8 +1,14 @@
 {
 	"pageTitle": "WinWinTravel frontend test task",
 	"open": "Open filters",
-	"title": "Filters",
+	"title": "Filter",
 	"close": "Close filters",
-	"placeholder": "Filter options will appear here.",
-	"demoElement": "demo purpose element"
+	"demoElement": "demo purpose element",
+	"loading": "Loading filters…",
+	"loadError": "Couldn't load filters. Please try again later.",
+	"clearAll": "Clear all parameters",
+	"confirmTitle": "Do you want to apply new filter",
+	"useOldFilter": "Use old filter",
+	"applyNewFilter": "Apply new filter",
+	"selectedFilters": "Selected filters"
 }
