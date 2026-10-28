@@ -37,10 +37,13 @@ jobs:
         run: pnpm install
 
       - name: Run build
-        run: npm run build
+        run: pnpm build
 
       - name: Run format
-        run: npm run format:check:all
+        run: pnpm format:check:all
 
       - name: Run lint
-        run: npm run lint:all
+        run: pnpm lint:all
+
+      - name: Run tests
+        run: pnpm test --run --passWithNoTests

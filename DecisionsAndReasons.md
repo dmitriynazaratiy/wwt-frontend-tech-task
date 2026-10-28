@@ -14,6 +14,10 @@ Run checks automatically on Node 24 and keep other versions available for manual
 
 **Example:** The October 2026 security release fixed a remote code execution vulnerability (CVE-2026-111497), with the fix included in Node 24.22.1. Node 18 and 20 are end-of-life and will not receive official security fixes, including this one. [Official advisory](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases)
 
+### Decision 4: run every pipeline step with pnpm, including tests
+
+Run build, format, lint and test scripts through pnpm instead of npm. The pipeline already installs dependencies with the pinned pnpm version, so using the same tool for scripts keeps the toolchain consistent. Tests run once with `--passWithNoTests`, so the pipeline stays green before the first test files are added and still fails on any broken test.
+
 ## Dependencies and packages
 
 ### Decision 1: upgrade React Router to v7
