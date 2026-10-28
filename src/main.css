@@ -1,2 +1,147 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
+@theme {
+	--font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+	--color-grey-100: #f4f4f4;
+	--color-grey-200: #b4b4b4;
+	--color-grey-300: #7e7e7e;
+	--color-grey-400: #474747;
+	--color-grey-500: #31393c;
+	--color-brand-100: #ff9e59;
+	--color-brand-200: #ff5f00;
+	--color-brand-300: #ff3d00;
+	--color-overlay: #1b1b1b;
+
+	--shadow-100: 0 2px 12px rgb(0 0 0 / 14%);
+	--blur-overlay: 12.5px;
+
+	/* Figma "Fonts - Inter" type scale. Every style uses line-height normal.
+	   text-headline-2 sets size, line height and weight together. */
+	--text-headline-1: 3rem;
+	--text-headline-1--line-height: normal;
+	--text-headline-1--font-weight: 400;
+	--text-headline-2: 2.5rem;
+	--text-headline-2--line-height: normal;
+	--text-headline-2--font-weight: 500;
+	--text-headline-3: 2.25rem;
+	--text-headline-3--line-height: normal;
+	--text-headline-3--font-weight: 500;
+	--text-headline-4: 2rem;
+	--text-headline-4--line-height: normal;
+	--text-headline-4--font-weight: 500;
+	--text-headline-5: 1.5rem;
+	--text-headline-5--line-height: normal;
+	--text-headline-5--font-weight: 500;
+	--text-body-1: 1.5rem;
+	--text-body-1--line-height: normal;
+	--text-body-1--font-weight: 400;
+	--text-body-2: 1.25rem;
+	--text-body-2--line-height: normal;
+	--text-body-2--font-weight: 600;
+	--text-body-3: 1.25rem;
+	--text-body-3--line-height: normal;
+	--text-body-3--font-weight: 500;
+	--text-body-4: 1.25rem;
+	--text-body-4--line-height: normal;
+	--text-body-4--font-weight: 400;
+	--text-body-5: 1rem;
+	--text-body-5--line-height: normal;
+	--text-body-5--font-weight: 500;
+	--text-body-6: 1rem;
+	--text-body-6--line-height: normal;
+	--text-body-6--font-weight: 400;
+	--text-body-7: 0.875rem;
+	--text-body-7--line-height: normal;
+	--text-body-7--font-weight: 400;
+	--text-body-8: 0.75rem;
+	--text-body-8--line-height: normal;
+	--text-body-8--font-weight: 400;
+	--text-body-9: 0.625rem;
+	--text-body-9--line-height: normal;
+	--text-body-9--font-weight: 400;
+	--text-button-xl: 2.25rem;
+	--text-button-xl--line-height: normal;
+	--text-button-xl--font-weight: 600;
+	--text-button-lg: 1.5rem;
+	--text-button-lg--line-height: normal;
+	--text-button-lg--font-weight: 600;
+	--text-button: 1rem;
+	--text-button--line-height: normal;
+	--text-button--font-weight: 600;
+	/* Hyperlink styles; add `underline` where the link is drawn underlined. */
+	--text-link-1: 1.25rem;
+	--text-link-1--line-height: normal;
+	--text-link-1--font-weight: 500;
+	--text-link-2: 1rem;
+	--text-link-2--line-height: normal;
+	--text-link-2--font-weight: 500;
+	--text-link-3: 0.875rem;
+	--text-link-3--line-height: normal;
+	--text-link-3--font-weight: 500;
+
+	/* Modal shell, from the Figma filter pop-up */
+	--container-modal: 80rem;
+	--spacing-modal-title-gap: 25px;
+	--spacing-modal-header-cap: 40dvh;
+
+	/* 64px desktop buttons: Figma padding minus the 2px border, which Figma
+	   draws inside the frame. Loading trades 16px for the spinner. */
+	--spacing-button-primary: 68px;
+	--spacing-button-primary-loading: 52px;
+	--spacing-button-outline: 47px;
+	--spacing-button-outline-loading: 31px;
+	/* 48px and 40px phone buttons: Figma 24px padding minus the border */
+	--spacing-button-phone: 22px;
+	--spacing-button-phone-loading: 6px;
+}
+
+/* State variants for components that expose data-state */
+@custom-variant state-idle (&[data-state='idle']);
+@custom-variant state-loading (&[data-state='loading']);
+@custom-variant state-disabled (&[data-state='disabled']);
+@custom-variant state-open (&[data-state='open']);
+@custom-variant state-closed (&[data-state='closed']);
+
+/* Set by the modal stack on each modal root */
+@custom-variant modal-below (.modal-root[data-top='false'] &);
+@custom-variant modal-backdrop-motion (.modal-root[data-backdrop-motion='true'] &);
+
+/* tw-animate's exit animation that holds its last frame. Its animate-out
+   shorthand resets animation-fill-mode, so a separate fill-mode class cannot
+   keep a closing element hidden until it is removed. */
+@utility animate-exit {
+	animation: exit var(--tw-duration, 150ms) var(--tw-ease, ease) forwards;
+}
+
+/* Trims text to its cap height and baseline, as Figma does for buttons */
+@utility text-trim {
+	text-box-trim: trim-both;
+	text-box-edge: cap alphabetic;
+}
+
+/* Title centred between the close button column and an equal empty column */
+@utility grid-cols-modal-header {
+	grid-template-columns: 2.75rem 1fr 2.75rem;
+}
+
+/* All modal stacking values live here. Each modal root is its own stacking
+   context, layered by the --modal-layer index that the modal stack assigns.
+   Portal third-party dropdowns into the owning modal (useModalContainer) and
+   give them z-(--modal-z-popover). A library that can only portal to body
+   needs a z-index above the highest modal layer, e.g. --modal-z-body-popover. */
+:root {
+	--modal-z-base: 1000;
+	--modal-z-step: 10;
+	--modal-z-backdrop: 0;
+	--modal-z-content: 1;
+	--modal-z-popover: 2;
+	--modal-z-body-popover: calc(var(--modal-z-base) + 100 * var(--modal-z-step));
+}
+
+@utility modal-root {
+	z-index: calc(
+		var(--modal-z-base) + var(--modal-layer, 0) * var(--modal-z-step)
+	);
+}

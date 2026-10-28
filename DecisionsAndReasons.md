@@ -23,3 +23,17 @@ Run build, format, lint and test scripts through pnpm instead of npm. The pipeli
 ### Decision 1: upgrade React Router to v7
 
 Upgrade `react-router` and `react-router-dom` to v7 because the latest v6 patch does not resolve all reported security advisories. The redirect and SSR hydration fixes are available in v7.18.0 and later. Using the upstream fixes avoids maintaining custom security patches. React Router v7 requires Node 20 or newer, so remove Node 18 from the manual CI choices. [Redirect advisory](https://github.com/remix-run/react-router/security/advisories/GHSA-wrjc-x8rr-h8h6), [SSR hydration advisory](https://github.com/remix-run/react-router/security/advisories/GHSA-337j-9hxr-rhxg)
+
+### Decision 2: do not add a modal library
+
+Use the in-house modal component instead of a dialog library. See [Architecture, Decision 1](#decision-1-build-a-reusable-modal-component).
+
+## Architecture
+
+### Decision 1: build a reusable modal component
+
+Implement the modal as a shared component in `shared/ui/Modal` instead of building it into the filter feature. The task already needs more than one modal: the `Apply` confirmation dialog opens on top of the filter modal. A single component keeps focus, keyboard, scroll and layering behaviour consistent across all modals and avoids duplicating it. Libraries such as `@radix-ui/react-dialog` or `@headlessui/react` were considered, but they have known issues with third-party UI components such as dropdowns, and the design-specific behaviour such as a single backdrop would still need custom code on top.
+
+### Decision 2: manage open modals in a DOM-level stack with per-modal portal containers
+
+Coordinate open modals through a small stack module per document, and render each modal into its own container appended to `body`. The stack applies focus trapping, `Escape` handling, scroll locking and `inert` only to the top modal, and does this synchronously without a context provider or extra re-renders. Separate containers give each modal its own layer and backdrop, with all z-index values defined in one stylesheet. The native `<dialog>` top layer was not used because it renders above any z-index, which would hide dropdowns that third-party libraries attach to `body`.

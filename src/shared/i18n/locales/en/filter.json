@@ -1,1 +1,8 @@
-{}
+{
+	"pageTitle": "WinWinTravel frontend test task",
+	"open": "Open filters",
+	"title": "Filters",
+	"close": "Close filters",
+	"placeholder": "Filter options will appear here.",
+	"demoElement": "demo purpose element"
+}
