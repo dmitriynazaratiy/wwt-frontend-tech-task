@@ -1,9 +1,9 @@
 import { InputHTMLAttributes, ReactNode, useId } from 'react'
 
-import checkboxCheckedDisabledIconUrl from '@/shared/assets/icons/checkbox-checked-disabled.svg?url'
-import checkboxCheckedIconUrl from '@/shared/assets/icons/checkbox-checked.svg?url'
-import checkboxHoverIconUrl from '@/shared/assets/icons/checkbox-hover.svg?url'
-import checkboxIconUrl from '@/shared/assets/icons/checkbox.svg?url'
+import checkboxCheckedDisabledIconUrl from '@assets/icons/checkbox-checked-disabled.svg?url'
+import checkboxCheckedIconUrl from '@assets/icons/checkbox-checked.svg?url'
+import checkboxHoverIconUrl from '@assets/icons/checkbox-hover.svg?url'
+import checkboxIconUrl from '@assets/icons/checkbox.svg?url'
 
 export interface CheckboxProps
 	extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'children'> {

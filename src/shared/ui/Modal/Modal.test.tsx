@@ -2,7 +2,9 @@ import { useState } from 'react'
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import '@/shared/i18n'
+// Initialize real translations for component tests.
+// Required side effect: keep this import even though it binds no values.
+import '@shared/i18n'
 
 import { Modal, ModalProps } from './Modal'
 import { ModalApplyButton, ModalCancelButton } from './ModalActionButtons'

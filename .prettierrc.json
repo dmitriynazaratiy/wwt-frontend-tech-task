@@ -15,7 +15,7 @@
 		"^react(.*)",
 		"<THIRD_PARTY_MODULES>",
 		"@api",
-		"@(assets|components|constants|helpers|pages|providers|store|temp|utils|/)",
+		"@(assets|components|constants|features|helpers|pages|providers|shared|store|temp|utils|/)",
 		"^[./]"
 	],
 	"importOrderSeparation": true,

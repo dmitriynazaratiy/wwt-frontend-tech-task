@@ -1,8 +1,8 @@
 import { useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { FilterModal, useFilterStore } from '@/features/filter'
-import { Button } from '@/shared/ui/Button'
+import { FilterModal, useFilterStore } from '@features/filter'
+import { Button } from '@shared/ui/Button'
 
 export const App = () => {
 	const { t } = useTranslation('filter')

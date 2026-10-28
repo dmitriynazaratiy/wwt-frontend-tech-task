@@ -1,4 +1,4 @@
-import { FilterItem } from '@/shared/api/types/Filter'
+import { FilterItem } from '@shared/api/types/Filter'
 
 import { toSearchRequest, toSelection, toggleOption } from './selection'
 

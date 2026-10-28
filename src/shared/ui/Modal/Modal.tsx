@@ -2,7 +2,7 @@ import { ReactNode, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 
-import CloseIcon from '@/shared/assets/icons/close.svg'
+import CloseIcon from '@assets/icons/close.svg'
 
 import { Divider } from '../Divider'
 import { ModalApplyButton, ModalCancelButton } from './ModalActionButtons'

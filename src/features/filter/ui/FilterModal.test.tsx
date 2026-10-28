@@ -1,9 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import '@/shared/i18n'
+import { App } from '@pages/Home'
+// Initialize real translations for component tests.
+// Required side effect: keep this import even though it binds no values.
+import '@shared/i18n'
 
-import { App } from '../../../pages/Home'
 import { useFilterStore } from '../model/filterStore'
 
 const renderApp = () =>

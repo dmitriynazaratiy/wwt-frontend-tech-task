@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react'
 
-import LoadingDarkIcon from '@/shared/assets/icons/loading-dark.svg'
-import LoadingLightIcon from '@/shared/assets/icons/loading-light.svg'
+import LoadingDarkIcon from '@assets/icons/loading-dark.svg'
+import LoadingLightIcon from '@assets/icons/loading-light.svg'
 
 export type ButtonVariant = 'primary' | 'outline'
 

@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { FilterItem } from '@/shared/api/types/Filter'
-import { Checkbox } from '@/shared/ui/Checkbox'
-import { Divider } from '@/shared/ui/Divider'
-import { LinkButton } from '@/shared/ui/LinkButton'
-import { Modal, ModalApplyButton } from '@/shared/ui/Modal'
+import { FilterItem } from '@shared/api/types/Filter'
+import { Checkbox } from '@shared/ui/Checkbox'
+import { Divider } from '@shared/ui/Divider'
+import { LinkButton } from '@shared/ui/LinkButton'
+import { Modal, ModalApplyButton } from '@shared/ui/Modal'
 
 import { useFilterItems } from '../api/useFilterItems'
 import { useFilterStore } from '../model/filterStore'

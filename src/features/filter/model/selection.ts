@@ -1,5 +1,5 @@
-import { FilterItem } from '@/shared/api/types/Filter'
-import { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter'
+import { FilterItem } from '@shared/api/types/Filter'
+import { SearchRequestFilter } from '@shared/api/types/SearchRequest/SearchRequestFilter'
 
 /** Ticked option ids per filter id, as edited in the filter modal. */
 export type FilterSelection = Record<string, string[]>
